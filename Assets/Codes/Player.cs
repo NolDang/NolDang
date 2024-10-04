@@ -11,9 +11,13 @@ public class Player : MonoBehaviour {
 	public float speed; //속도 관리용 변수
 
     Rigidbody2D rigid;
+    SpriteRenderer spriter;
+    Animator anim;  
 
     void Awake() {  //시작할 때 한번만 실행되는 생명주기 함수
         rigid = GetComponent<Rigidbody2D>();    //GetComponent<T> : 오브젝트에서 컴포넌트 T를 가져오는 함수
+        spriter = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void FixedUpdate() {    //물리 연산 프레임마다 호출되는 생명주기 함수
@@ -26,5 +30,14 @@ public class Player : MonoBehaviour {
     void OnMove(InputValue value)
     {
         inputVec = value.Get<Vector2>();
+    }
+
+    void LateUpdate()
+    {
+        anim.SetFloat("Speed",inputVec.magnitude);
+        if(inputVec.x != 0){
+            spriter.flipX = inputVec.x < 0;  
+
+        }
     }
 }
