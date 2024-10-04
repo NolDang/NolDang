@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 
 public class Player : MonoBehaviour {
-    Vector2 inputVec;   //입력 값 저장 변수
+    public Vector2 inputVec;   //입력 값 저장 변수
 	public float speed; //속도 관리용 변수
 
     Rigidbody2D rigid;
