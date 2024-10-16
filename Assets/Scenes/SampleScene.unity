@@ -238,8 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5be6e26b752e14b1580e46d33f8f5b17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameTime: 20
-  maxGameTime: 20
+  gameTime: 5
+  maxGameTime: 15
   player: {fileID: 1530810586}
   pool: {fileID: 405112743}
 --- !u!1 &122225141
@@ -612,7 +612,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 10.833333
+  orthographic size: 14.833333
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
