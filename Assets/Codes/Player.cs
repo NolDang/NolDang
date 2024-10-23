@@ -9,7 +9,8 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour {
     public Vector2 inputVec;   //입력 값 저장 변수
 	public float speed; //속도 관리용 변수
-
+    
+    public Scanner scanner;
     Rigidbody2D rigid;
     SpriteRenderer spriter;
     Animator anim;  
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour {
         rigid = GetComponent<Rigidbody2D>();    //GetComponent<T> : 오브젝트에서 컴포넌트 T를 가져오는 함수
         spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
+        scanner = GetComponent<Scanner>();
     }
 
     void FixedUpdate() {    //물리 연산 프레임마다 호출되는 생명주기 함수
