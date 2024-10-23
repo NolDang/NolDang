@@ -1,24 +1,42 @@
+//GameManager Script
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
-{
-    public static GameManager instance; // static으로 선언된 변수는 인스펙터에 나타나지 않음.
-    public float gameTime;
-    public float maxGameTime = 2 * 10f;
-    public Player player;
+public class GameManager : MonoBehaviour {
+	public static GameManager instance;
+	[Header("# Game Control")]
+	public float gameTime;	//게임 시간 변수
+	public float maxGameTime = 2 * 10f; //최대 게임 시간 변수(20초).
+    [Header("# Player Info")]
+    public int level;
+	public int kill;
+	public int exp;
+	public int[] nextExp = { 3, 5, 10, 100, 150, 210, 280, 360, 450, 600 };
+    [Header("# Game Object")]
     public PoolManager pool;
+    public Player player;
 
-    void Awake(){
-        instance = this;
+    void Awake() {
+		instance = this;
+	}
 
-    }
-    void Update() {
+	void Update() {
 		gameTime += Time.deltaTime;
 
 		if (gameTime > maxGameTime) {
 			gameTime = maxGameTime;
+		}
+	}
+
+	public void GetExp() {
+		exp++;
+
+		if (exp == nextExp[level]) {
+			level++;
+			exp = 0;
+
 		}
 	}
 }
