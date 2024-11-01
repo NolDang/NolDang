@@ -1,3 +1,5 @@
+// Spawner Script
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +16,9 @@ public class Spawner : MonoBehaviour {
     }
 
     void Update() {
+        if (!GameManager.instance.isLive)
+            return;
+
         timer += Time.deltaTime;
         //FloorToInt : 소수점 아래는 버리고 Int형으로 바꾸는 함수. CeilToInt : 소수점 아래를 올리고 Int형으로 바꾸는 함수.
         level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / 10f), spawnData.Length - 1); //오류 수정
@@ -31,12 +36,11 @@ public class Spawner : MonoBehaviour {
     }
 }
 
-
 //직렬화(Serialization) : 개체를 저장/전송하기 위해 변환
 [System.Serializable]
 public class SpawnData {
-    public int spriteType;  //몬스터 스프라이트 타입
     public float spawnTime; //몬스터 소환 시간
+    public int spriteType;  //몬스터 스프라이트 타입
     public int health;      //몬스터 체력
     public float speed;     //몬스터 스피드
 }
