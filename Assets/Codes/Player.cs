@@ -1,45 +1,48 @@
-//Plyaer Script
+//Player Script
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-
 public class Player : MonoBehaviour {
-    public Vector2 inputVec;   //입력 값 저장 변수
-	public float speed; //속도 관리용 변수
-    
+    public Vector2 inputVec;   //키보드 입력 값 변수
+	public float speed; //속도 관리 변수
     public Scanner scanner;
+    public Hand[] hands;
+
     Rigidbody2D rigid;
     SpriteRenderer spriter;
-    Animator anim;  
+    Animator anim;
 
-    void Awake() {  //시작할 때 한번만 실행되는 생명주기 함수
-        rigid = GetComponent<Rigidbody2D>();    //GetComponent<T> : 오브젝트에서 컴포넌트 T를 가져오는 함수
-        spriter = GetComponent<SpriteRenderer>();
+    void Awake() {
+        rigid = GetComponent<Rigidbody2D>();
+		spriter = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         scanner = GetComponent<Scanner>();
-    }
+        hands = GetComponentsInChildren<Hand>(true);    //인자의 true를 통해서 비활성화된 오브젝트도 가능
+	}
+    void FixedUpdate() {
+        if (!GameManager.instance.isLive)
+            return;
 
-    void FixedUpdate() {    //물리 연산 프레임마다 호출되는 생명주기 함수
 		//위치 이동
-		//normalized : 벡터 값의 크기가 1이 되도록 좌표가 수정된 값. 대각선 이동시 값 고정을 위함.
-		Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;    //fixedDeltaTime : 물리 프레임 하나가 소비한 시간. Update에서는 DeltaTime 사용.
-        rigid.MovePosition(rigid.position + nextVec);  //현재 위치 + 나아갈 방향 : (x, y) 좌표 활용
+		Vector2 nextVec = inputVec * speed * Time.fixedDeltaTime;
+		rigid.MovePosition(rigid.position + nextVec);
     }
 
-    void OnMove(InputValue value)
-    {
+    void OnMove(InputValue value) {
         inputVec = value.Get<Vector2>();
     }
 
-    void LateUpdate()
-    {
-        anim.SetFloat("Speed",inputVec.magnitude);
-        if(inputVec.x != 0){
-            spriter.flipX = inputVec.x < 0;  
+    void LateUpdate() {
+        if (!GameManager.instance.isLive)
+            return;
 
+        anim.SetFloat("Speed", inputVec.magnitude); //Magnitude : 벡터의 순수한 크기 값
+        
+        if (inputVec.x != 0) {
+            spriter.flipX = inputVec.x < 0;
         }
     }
 }
