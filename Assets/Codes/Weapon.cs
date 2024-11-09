@@ -35,11 +35,6 @@ public class Weapon : MonoBehaviour {
                 }
                 break;
         }
-
-        // .. Test Code ..
-        if (Input.GetButtonDown("Jump")) {
-            LevelUp(10, 1);
-        }
     }
     
     public void LevelUp(float damage, int count) {
@@ -107,7 +102,7 @@ public class Weapon : MonoBehaviour {
             Vector3 rotVec = Vector3.forward * 360 * index / count; //개수에 따라 360도 나누기
             bullet.Rotate(rotVec);
             bullet.Translate(bullet.up * 1.5f, Space.World); //무기 위쪽으로 이동
-            bullet.GetComponent<Bullet>().Init(damage, -1, Vector3.zero); //-1 is Infinity Per. 무한 관통.
+            bullet.GetComponent<Bullet>().Init(damage, -100, Vector3.zero); //-100 is Infinity Per. 무한 관통.
         }
     }
 
