@@ -16,7 +16,7 @@ MonoBehaviour:
   itemId: 3
   itemName: "\uADE4 "
   itemDesc: "\uC774\uB3D9\uC18D\uB3C4 {0}%\uC99D\uAC00 "
-  itemIcon: {fileID: 21300000, guid: cade68f4583734c8eac38f9bd1347cb5, type: 3}
+  itemIcon: {fileID: 21300000, guid: f32b564bb446f4ef8b573808f00d79da, type: 3}
   baseDamage: 0
   baseCount: 0
   damages:
