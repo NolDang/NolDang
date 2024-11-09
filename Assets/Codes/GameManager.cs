@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;	//장면 관리(Scene Manager 같은)를 사용하기 위한 네임스페이스.
 
 public class GameManager : MonoBehaviour {
 	public static GameManager instance;
@@ -11,8 +12,9 @@ public class GameManager : MonoBehaviour {
 	public float gameTime;	//게임 시간 변수
 	public float maxGameTime = 2 * 10f; //최대 게임 시간 변수(20초).
 	[Header("# Player Info")]
-	public int health;
-	public int maxHealth = 100;
+	public int playerId;
+	public float health;
+	public float maxHealth = 100;
     public int level;
 	public int kill;
 	public int exp;
@@ -21,16 +23,56 @@ public class GameManager : MonoBehaviour {
     public PoolManager pool;
     public Player player;
 	public LevelUp uiLevelUp;
+	public Result uiResult;
+	public GameObject enemyCleaner;
 
     void Awake() {
 		instance = this;
 	}
 
-	void Start() {
-		health = maxHealth;
+	public void GameStart(int id)
+    {
+        playerId = id;
+        maxHealth = 100;
+        health = maxHealth;
 
-		//임시 스크립트 (첫번째 캐릭터 선택)
-		uiLevelUp.Select(0);
+        player.gameObject.SetActive(true);
+        uiLevelUp.Select(playerId);    //임시 스크립트 (첫번째 캐릭터 선택)
+
+        Resume();
+    }
+
+	public void GameOver() {
+		StartCoroutine(GameOverRoutine());
+	}
+
+	IEnumerator GameOverRoutine() {
+		isLive = false;
+		
+		yield return new WaitForSeconds(0.5f);
+
+		uiResult.gameObject.SetActive(true);
+		uiResult.Lose();
+		Stop();
+	}
+
+    public void GameVictory() {
+        StartCoroutine(GameVictoryRoutine());
+    }
+
+    IEnumerator GameVictoryRoutine() {
+        isLive = false;
+		enemyCleaner.SetActive(true);
+
+        yield return new WaitForSeconds(0.5f);
+
+        uiResult.gameObject.SetActive(true);
+        uiResult.Win();
+        Stop();
+    }
+
+    public void GameRetry() {
+		SceneManager.LoadScene(0);	//LoadScene() : 이름 혹은 인덱스로 장면을 새롭게 부르는 함수
 	}
 
 	void Update() {
@@ -41,10 +83,14 @@ public class GameManager : MonoBehaviour {
 
 		if (gameTime > maxGameTime) {
 			gameTime = maxGameTime;
+			GameVictory();
 		}
 	}
 
 	public void GetExp() {
+		if (!isLive)	//EnemyCleaner로 경험치를 못얻게 하기 위함
+			return;
+
 		exp++;
 
 		if (exp == nextExp[Mathf.Min(level, nextExp.Length - 1)]) {
