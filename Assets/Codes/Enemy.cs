@@ -76,7 +76,7 @@ public class Enemy : MonoBehaviour {
 
         if(health > 0) {
             anim.SetTrigger("Hit");
-
+            AudioManager.instance.PlaySfx(AudioManager.Sfx.Hit);
         }
         else {
             isLive = false;
@@ -86,6 +86,9 @@ public class Enemy : MonoBehaviour {
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
             GameManager.instance.GetExp();
+            
+            if (GameManager.instance.isLive)    //게임 승리시 사운드 테러 방지
+                AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);
         }
     }
 
