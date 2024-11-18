@@ -77,9 +77,11 @@ public class GameManager : MonoBehaviour {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
-    public void GameRetry() {
-		SceneManager.LoadScene(0);	//LoadScene() : 이름 혹은 인덱스로 장면을 새롭게 부르는 함수
-	}
+ public void GameRetry() {
+    string currentSceneName = SceneManager.GetActiveScene().name;
+    SceneManager.LoadScene(currentSceneName);
+}
+
 
 	void Update() {
 		if (!isLive)
@@ -115,4 +117,7 @@ public class GameManager : MonoBehaviour {
         isLive = true;
         Time.timeScale = 1;	//값이 1보다 크면 그만큼 시간이 빠르게 흐름. 모바일 게임에서 시간 가속하는 것이 이것..
     }
+
+	
+
 }
