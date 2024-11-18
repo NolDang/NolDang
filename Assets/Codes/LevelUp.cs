@@ -1,5 +1,3 @@
-//LevelUp Script
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,12 +6,20 @@ public class LevelUp : MonoBehaviour {
     RectTransform rect;
     Item[] items;
 
+    private float previousTimeScale; // 레벨업 전에 저장된 배속 값
+
     void Awake() {
         rect = GetComponent<RectTransform>();
         items = GetComponentsInChildren<Item>(true);
     }
 
     public void Show() {
+        // 현재 배속 값을 저장
+        previousTimeScale = Time.timeScale;
+
+        // 배속을 0으로 설정 (일시정지)
+        Time.timeScale = 0f;
+
         Next();
         rect.localScale = Vector3.one;
         GameManager.instance.Stop();
@@ -26,6 +32,9 @@ public class LevelUp : MonoBehaviour {
         GameManager.instance.Resume();
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
         AudioManager.instance.EffectBgm(false);
+
+        // 배속을 복원
+        RestoreTimeScale();
     }
 
     public void Select(int index) {
@@ -34,7 +43,7 @@ public class LevelUp : MonoBehaviour {
 
     void Next() {
         // 1. 모든 아이템 비활성화
-        foreach(Item item in items) {
+        foreach (Item item in items) {
             item.gameObject.SetActive(false);
         }
 
@@ -60,6 +69,16 @@ public class LevelUp : MonoBehaviour {
                 ranItem.gameObject.SetActive(true);
             }
         }
+    }
 
+    // 배속 복원 함수
+    private void RestoreTimeScale() {
+        if (DoubleSpeed.instance != null) {
+            // DoubleSpeed 싱글톤을 통해 현재 배속 복원
+            DoubleSpeed.instance.ApplySpeed();
+        } else {
+            // 싱글톤이 없을 경우 이전 배속 복원
+            Time.timeScale = previousTimeScale;
+        }
     }
 }
