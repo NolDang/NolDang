@@ -6,7 +6,7 @@ public class DoubleSpeed : MonoBehaviour
     public static DoubleSpeed instance; // 싱글톤 인스턴스
 
     public Text speedText; // 배속을 표시할 텍스트
-    private float[] speeds = { 1f, 2f, 3f, 4f }; // 배속 단계
+    private float[] speeds = { 1f,1.5f, 2f, 3f }; // 배속 단계
     private int currentSpeedIndex = 0; // 현재 배속 단계의 인덱스
 
     void Awake()
@@ -64,3 +64,5 @@ public class DoubleSpeed : MonoBehaviour
         UpdateSpeedText();
     }
 }
+
+
