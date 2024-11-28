@@ -17,15 +17,27 @@ public class Spawner : MonoBehaviour {
         levelTime = GameManager.instance.maxGameTime / spawnData.Length;    //최대 시간에 몬스터 데이터 크기로 나눠 자동으로 구간 시간 계산
     }
 
-    void Update() {
+   void Update()
+    {
         if (!GameManager.instance.isLive)
             return;
 
         timer += Time.deltaTime;
-        //FloorToInt : 소수점 아래는 버리고 Int형으로 바꾸는 함수. CeilToInt : 소수점 아래를 올리고 Int형으로 바꾸는 함수.
-        level = Mathf.Min(Mathf.FloorToInt(GameManager.instance.gameTime / levelTime), spawnData.Length - 1);
 
-        if (timer > spawnData[level].spawnTime) {
+        // 게임 시간이 끝나기 1분 전이라면 마지막 몬스터로 설정
+        if (GameManager.instance.gameTime >= GameManager.instance.maxGameTime - 60f)
+        {
+            level = spawnData.Length - 1; // 마지막 몬스터
+        }
+        else
+        {
+            // 변수를 이용해 자동으로 구간 시간 계산
+            level = Mathf.FloorToInt(GameManager.instance.gameTime / levelTime);
+            level = Mathf.Min(level, spawnData.Length - 2); // 마지막 몬스터 전까지만 계산
+        }
+
+        if (timer > spawnData[level].spawnTime)
+        {
             timer = 0;
             Spawn();
         }

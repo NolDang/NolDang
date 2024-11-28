@@ -15,6 +15,10 @@ public class Scanner : MonoBehaviour
         nearestTarget = GetNearest();
     }
 
+    void Awake(){
+        scanRange = 5 + UpgradeList.Range;
+    }
+
     Transform GetNearest() {
         Transform result = null;
         float diff = 100;

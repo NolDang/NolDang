@@ -60,11 +60,40 @@ public class Enemy : MonoBehaviour {
     }
 
     //데이터를 가져오기 위한 초기화 함수
-    public void Init(SpawnData data) {
+    public void Init(SpawnData data)
+    //Spawner의 SpawnData에서 지정한 데이터를 받아주는 함수
+    {
         anim.runtimeAnimatorController = animCon[data.spriteType];
-        speed = data.speed;
-        maxHealth = data.health;
+        // 지정한 스프라이트 타입을 animCon 배열의 인덱스로 활용
+        speed = data.speed; // 지정한 스피드
+        maxHealth = data.health; // 최대체력 = 지정한 체력
         health = data.health;
+
+        // 세 번째 몬스터인지 확인
+        if (data.spriteType == 2) // spriteType이 2라면 세 번째 몬스터
+        {
+            // Rigidbody2D 크기 조정
+            rigid.mass = 2f; // 필요하면 mass도 변경
+            rigid.drag = 0.5f; // 필요하면 물리 특성 변경
+
+            // Collider2D 크기 조정 (CapsuleCollider2D 사용)
+            CapsuleCollider2D capsule = coll as CapsuleCollider2D;
+            if (capsule != null)
+            {
+                capsule.size = new Vector2(2f, 4f); // Collider 크기 변경
+                capsule.offset = new Vector2(0f, 1f); // Collider 위치 조정
+            }
+        }
+        else
+        {
+            // 기본 크기 복원
+            CapsuleCollider2D capsule = coll as CapsuleCollider2D;
+            if (capsule != null)
+            {
+                capsule.size = new Vector2(1f, 2f); // 기본 Collider 크기
+                capsule.offset = Vector2.zero; // 기본 Collider 위치
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision) {
@@ -85,7 +114,10 @@ public class Enemy : MonoBehaviour {
             spriter.sortingOrder = 1;   //SpriteRenderer의 Sorting Order를 감소시켜 다른 몬스터를 가리지 않게 함.
             anim.SetBool("Dead", true);
             GameManager.instance.kill++;
+            GameManager.instance.gold += 1;
             GameManager.instance.GetExp();
+            PlayerPrefs.SetInt("PlayerGold", GameManager.instance.gold);
+            PlayerPrefs.Save();
             
             if (GameManager.instance.isLive)    //게임 승리시 사운드 테러 방지
                 AudioManager.instance.PlaySfx(AudioManager.Sfx.Dead);

@@ -16,6 +16,11 @@ public class Result : MonoBehaviour {
         titles[1].SetActive(true);
         isVictory = true; // 승리로 설정
     }
+    public void Story()
+    {
+        titles[2].SetActive(true);
+        isVictory = true; // 승리로 설정
+    }
 
     // 버튼 클릭 시 호출되는 메서드
     public void OnRetryButtonClick() {
