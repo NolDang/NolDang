@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public bool isLive;	//시간 정지 여부 확인 변수
 	public float gameTime;	//게임 시간 변수
 	public float maxGameTime = 2 * 10f; //최대 게임 시간 변수(20초).
+	public bool Storyflag = false;
 	[Header("# Player Info")]
 	public int playerId;
 	public int upgradeId;
@@ -19,7 +20,6 @@ public class GameManager : MonoBehaviour {
 	public float maxHealth = 100;
     public int level;
 	public int kill;
-
 	public int gold;
 	public int hplevel;
     public int damagelevel;
@@ -35,8 +35,12 @@ public class GameManager : MonoBehaviour {
 	public LevelUp uiLevelUp;
 	public Result uiResult;
 	public GameObject enemyCleaner;
+	public StoryManager manager;
 	public GameObject UpgradeGroup;
 	public Text money;
+	public Spawner spawner; // 인스펙터에서 Spawner 오브젝트를 할당
+
+	
 
     void Awake()
     {
@@ -62,6 +66,8 @@ public class GameManager : MonoBehaviour {
 
 		AudioManager.instance.PlayBgm(true);
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Select);
+
+    	spawner.isSpawningEnabled = true; // 몬스터 스폰 시작
     }
 
 	public void UpgradeEnhance(int num)
@@ -93,7 +99,7 @@ public class GameManager : MonoBehaviour {
                         playerspeedlevel++;
                         PlayerPrefs.SetInt("PlayerspeedLevel", playerspeedlevel);
                         PlayerPrefs.Save();
-                        UpgradeGroup.transform.Find("playerspeed/cost").GetComponent<Text>().text = "1000+(" + playerspeedlevel * 5 + "%)";
+                        UpgradeGroup.transform.Find("playerspeed/cost").GetComponent<Text>().text = "1000+(" + playerspeedlevel * 0.5 + "%)";
                     }
                     break;
 					case 3:
@@ -131,7 +137,7 @@ public class GameManager : MonoBehaviour {
     {
             UpgradeGroup.transform.Find("hp/cost").GetComponent<Text>().text = "1000+(" + hplevel * 10 + ")";
             UpgradeGroup.transform.Find("damage/cost").GetComponent<Text>().text = "1000+(" + damagelevel * 10 + ")";
-            UpgradeGroup.transform.Find("playerspeed/cost").GetComponent<Text>().text = "1000+(" + playerspeedlevel * 5 + "%)";
+            UpgradeGroup.transform.Find("playerspeed/cost").GetComponent<Text>().text = "1000+(" + playerspeedlevel * 0.5 + "%)";
             UpgradeGroup.transform.Find("attackspeed/cost").GetComponent<Text>().text = "1000+(" + attackspeedlevel * 10 + "%)";
             UpgradeGroup.transform.Find("count/cost").GetComponent<Text>().text = "1000+(" + countlevel + ")";
             UpgradeGroup.transform.Find("range/cost").GetComponent<Text>().text = "1000+(" + rangelevel + ")";
@@ -172,12 +178,23 @@ public class GameManager : MonoBehaviour {
         AudioManager.instance.PlaySfx(AudioManager.Sfx.Win);
     }
 
+
  public void GameRetry() {
     string currentSceneName = SceneManager.GetActiveScene().name;
     SceneManager.LoadScene(currentSceneName);
+	
 }
 
-
+public void nextStory()
+    {
+        pool.gameObject.SetActive(false);
+        player.gameObject.SetActive(false);
+        uiResult.gameObject.SetActive(false);
+        Storyflag = true;
+        uiResult.Story();
+        manager.Action();
+    }
+	
 	void Update() {
 		money.text = "Gold : " + gold;
 		if (!isLive)

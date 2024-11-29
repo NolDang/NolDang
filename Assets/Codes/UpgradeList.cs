@@ -36,11 +36,11 @@ public class UpgradeList : MonoBehaviour
         get { switch (GameManager.instance.playerspeedlevel)
                 {
                 case 0: return 1f;
-                case 1: return 1.05f;
-                case 2: return 1.1f;
-                case 3: return 1.15f;
-                case 4: return 1.2f;
-                default: return 1.25f;
+                case 1: return 1.005f;
+                case 2: return 1.01f;
+                case 3: return 1.015f;
+                case 4: return 1.02f;
+                default: return 1.025f;
                 }
             }
     }

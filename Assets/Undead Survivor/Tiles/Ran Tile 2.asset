@@ -18,31 +18,10 @@ MonoBehaviour:
   m_TilingRules:
   - m_Id: 0
     m_Sprites:
-    - {fileID: 21300000, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300014, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300020, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300022, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300024, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300026, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300028, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300030, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300032, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300034, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300036, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300038, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300040, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300042, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300044, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300046, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300048, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300050, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300052, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300054, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300056, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300058, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300092, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300094, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
-    - {fileID: 21300096, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
+    - {fileID: 21302502, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
+    - {fileID: 21302504, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
+    - {fileID: 21302512, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
+    - {fileID: 21302518, guid: aa9f510a84a336543994cb3b86dea09f, type: 3}
     m_GameObject: {fileID: 0}
     m_MinAnimationSpeed: 1
     m_MaxAnimationSpeed: 1

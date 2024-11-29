@@ -19,7 +19,7 @@ public class Result : MonoBehaviour {
     public void Story()
     {
         titles[2].SetActive(true);
-        isVictory = true; // 승리로 설정
+        // isVictory = true; // 승리로 설정
     }
 
     // 버튼 클릭 시 호출되는 메서드

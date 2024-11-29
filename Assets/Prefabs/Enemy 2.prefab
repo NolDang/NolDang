@@ -162,6 +162,7 @@ MonoBehaviour:
   animCon:
   - {fileID: 22100000, guid: 17204c2cf31c248f48bada4000a36f6a, type: 2}
   - {fileID: 22100000, guid: 78db227c2133d459789161a48bc52cc7, type: 2}
+  - {fileID: 22100000, guid: 1e0a482fbfb4f4a14a092f7ddc4f667b, type: 2}
   health: 10
   maxHealth: 10
   speed: 1.5

@@ -22,19 +22,20 @@ public class Bullet : MonoBehaviour {
             rigid.velocity = dir * 15f;
         }
     }
-
-    void OnTriggerEnter2D(Collider2D collision) {
+void OnTriggerEnter2D(Collider2D collision)
+    {
         if (!collision.CompareTag("Enemy") || per == -100)
             return;
 
         per--;
 
-        if (per < 0) {
-            rigid.velocity = Vector2.zero;
+        if(per < 0)
+        {
+            if (rigid != null)//rigid가 null인지 확인하는 코드를 추가
+                rigid.velocity = Vector2.zero;
             gameObject.SetActive(false);
         }
     }
-
 
     void OnTriggerExit2D(Collider2D collision) {
         if (!collision.CompareTag("Area") || per == -100)
